@@ -56,7 +56,7 @@ dkms.conf
 *.xml
 *Debug/
 .vs/
-*.cppproj
+*.cproj
 *.atsln
 *.mp4
 *.txt
