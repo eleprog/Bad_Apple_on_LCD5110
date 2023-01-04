@@ -10,6 +10,7 @@ def Data_Read(file, adr, len):
         per |= data[i] << (8*i)
     return per
 
+# функция отправки картинки в UART
 def FrameToUART(path, sens):
     file = open(path, "rb")
 
@@ -38,6 +39,7 @@ def FrameToUART(path, sens):
         for j in range(width):
             mas[height - i - 1][j] = file.read(1)
 
+    # создание массива для отправки в UART
     Buff = bytearray(504)
     for i in range(6):
         for j in range(width):
@@ -51,35 +53,29 @@ def FrameToUART(path, sens):
     file.close()  
 
 
-
+# основная программа
 com_port = serial.Serial()
 com_port.baudrate = 250000
 com_port.port = 'COM4'
 com_port.open()
 
+# граница того, какие пиксели отправлять на дисплей
 sensitivity = bytes(b'\x80')
 
-i = 0
-while i < 5258:
-    i += 1
+for i in range(1,5258):
 
+    # ожидание посылки синхронизации от ATmega8
     while com_port.inWaiting() == 0:
         pass
     com_port.readline(1)   
 
     path = "Frames/img"
-    if i < 10:
-        path += "000" 
-    elif i < 100:    
-        path += "00"
-    elif i < 1000:
-        path += "0"
-
+    if      i < 10:    path += "000"
+    elif    i < 100:   path += "00"
+    elif    i < 1000:  path += "0"
     path += str(i) + ".bmp"
 
     FrameToUART(path, sensitivity)
-
-
 
 
 com_port.close()
