@@ -14,9 +14,6 @@ uint8_t flag_update = 0;
 
 volatile uint16_t lcd_buff_count = 0;
 
-void UART_Init();
-void Timer1_Init();
-
 
 void UART_Init() {
 	UBRRL = F_CPU / 16 / BAUDRATE - 1;			// настройка baudrate
@@ -40,8 +37,7 @@ ISR(TIMER1_COMPA_vect) {
 }
 
 // обработчик приемника UART
-ISR(USART_RXC_vect)		
-{
+ISR(USART_RXC_vect) {
 	lcd_buff[lcd_buff_count] = UDR;
 	lcd_buff_count++;
 	if(lcd_buff_count == 504) {
