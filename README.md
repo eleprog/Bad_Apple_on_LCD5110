@@ -2,5 +2,5 @@
 Bad Apple on LCD5110 at 24fps on ATmega8 (frame transmission via UART from PC)
 
 
-[Демонстрация работы на YouTube](https://www.youtube.com/watch?v=5sgLJjkiWWY)
+[Demo on YouTube](https://www.youtube.com/watch?v=5sgLJjkiWWY)
 
